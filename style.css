@@ -1,0 +1,67 @@
+function getComputerChoice() {
+    let randomGenerated = Math.random();
+    if (randomGenerated > 0.6666) {
+        return 'rock';
+    } else if (randomGenerated > 0.3333) {
+        return 'paper';
+    } else {
+        return 'scissors';
+    }
+}
+
+let humanScore = 0;
+let computerScore = 0;
+
+function playRound() {
+    let humanChoice = prompt("Enter rock, paper, or scissors:");
+
+    if (!humanChoice) {
+        alert("Game canceled!");
+        return;
+    }
+
+    humanChoice = humanChoice.toLowerCase();
+
+    if (humanChoice !== 'rock' && humanChoice !== 'paper' && humanChoice !== 'scissors') {
+        alert("Invalid choice! Please enter rock, paper, or scissors.");
+        return;
+    }
+
+    let computerChoice = getComputerChoice();
+    let result;
+
+    if (humanChoice === computerChoice) {
+        result = "It's a tie!";
+    } else if (
+        (humanChoice === 'rock' && computerChoice === 'scissors') ||
+        (humanChoice === 'scissors' && computerChoice === 'paper') ||
+        (humanChoice === 'paper' && computerChoice === 'rock')
+    ) {
+        result = "You win!";
+        humanScore++;
+    } else {
+        result = "Computer wins!";
+        computerScore++;
+    }
+
+    alert(`You chose ${humanChoice}, computer chose ${computerChoice}. ${result}`);
+}
+
+function startGame() {
+    while (humanScore < 5 && computerScore < 5) {
+        playRound();
+
+        alert(`Current Scores:\nHuman: ${humanScore}\nComputer: ${computerScore}`);
+    }
+
+    if (humanScore === 5) {
+        alert("Congratulations! You reached 5 points and won the game!");
+    } else if (computerScore === 5) {
+        alert("Computer reached 5 points and won the game. Better luck next time!");
+    }
+
+    humanScore = 0;
+    computerScore = 0;
+}
+
+startGame();
